@@ -5,7 +5,7 @@ namespace PruebaEurofirms.Infrastructure.Interfaces
     public interface ICharacterRepository
     {
         List<Character> GetAllCharacters();
-        void AddCharacter(Character character);
-        void AddCharacters(List<Character> characters);
+        void AddCharacter(CharacterAPI character);
+        void AddCharacters(List<CharacterAPI> characters);
     }
 }

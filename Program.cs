@@ -25,6 +25,7 @@ builder.Services.AddScoped<ICharacterService, CharacterService>();
 builder.Services.AddScoped<IEpisodeService, EpisodeService>();
 builder.Services.AddScoped<ICharacterRepository, CharacterRepository>();
 builder.Services.AddScoped<IEpisodeRepository, EpisodeRepository>();
+builder.Services.AddScoped<ICharacterEpisodeRepository, CharacterEpisodeRepository>();
 
 string connectionString = builder.Configuration.GetConnectionString("DbConnection") ?? String.Empty;
 builder.Services.AddSingleton<DbContext>(new DbContext(connectionString));

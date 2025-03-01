@@ -1,5 +1,6 @@
 using PruebaEurofirms.Domain.Entities;
 using PruebaEurofirms.Infrastructure.Interfaces;
+using System.Data.SQLite;
 
 namespace PruebaEurofirms.Infrastructure.Repositories
 {
@@ -47,8 +48,10 @@ namespace PruebaEurofirms.Infrastructure.Repositories
             command.Parameters.AddWithValue("@code", episode.Code);
             command.Parameters.AddWithValue("@airdate", episode.AirDate);
             command.Parameters.AddWithValue("@url", episode.Url);
-
-            command.ExecuteNonQuery();
+            try{
+                command.ExecuteNonQuery();
+            }
+            catch (SQLiteException ex) when (ex.ErrorCode == 19){}
         }
         public void AddEpisodes(IEnumerable<Episode> episodes)
         {

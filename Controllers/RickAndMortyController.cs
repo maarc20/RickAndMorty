@@ -22,7 +22,7 @@ namespace PruebaEurofirms.Controllers
         {
             try
             {
-                var characters = await _characterService.GetCharactersAsync();  // Llama al servicio mediante la interfaz
+                var characters = await _characterService.GetAllCharactersAsync();  // Llama al servicio mediante la interfaz
                 var response = new 
                 {
                     Message = $"Personajes importados correctamente: {characters.Count}",
@@ -43,7 +43,7 @@ namespace PruebaEurofirms.Controllers
         [HttpGet("episodes")]
         public async Task<IActionResult> GetAllEpisodes()
         {
-            var episodes = await _episodeService.GetEpisodesAsync();  // Llama al servicio mediante la interfaz
+            var episodes = await _episodeService.GetAllEpisodesAsync();  // Llama al servicio mediante la interfaz
             return Ok(episodes);  // Responde con los personajes en formato JSON
         }
 

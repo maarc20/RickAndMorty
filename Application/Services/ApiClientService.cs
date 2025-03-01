@@ -11,9 +11,15 @@ namespace PruebaEurofirms.Application.Services
             _httpClient = httpClient;
         }
 
-        public async Task<dynamic> GetAsync(string endpoint)
+        public async Task<dynamic> GetAsync(string endpoint, Boolean useBaseAddress=true)
         {
-            var fullUrl = new Uri(_httpClient.BaseAddress, endpoint.TrimStart('/'));
+            Uri fullUrl;
+            if (useBaseAddress){
+                fullUrl = new Uri(_httpClient.BaseAddress, endpoint.TrimStart('/'));
+            }
+            else{
+                fullUrl = new Uri(endpoint);
+            }
             var response = await _httpClient.GetAsync(fullUrl);
 
             response.EnsureSuccessStatusCode();

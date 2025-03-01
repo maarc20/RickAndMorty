@@ -2,6 +2,7 @@ using PruebaEurofirms.Domain.Entities;
 using PruebaEurofirms.Application.Interfaces;
 using PruebaEurofirms.Infrastructure.Interfaces;
 using System.Text.Json;
+using System.Data.Entity.ModelConfiguration.Configuration;
 
 namespace PruebaEurofirms.Application.Services
 {
@@ -16,7 +17,7 @@ namespace PruebaEurofirms.Application.Services
             _episodeRepository = episodeRepository;
         }
 
-        public async Task<List<Episode>> GetEpisodesAsync()
+        public async Task<List<Episode>> GetAllEpisodesAsync()
         {
             var episodes = new List<Episode>();
             var response = await _apiClientService.GetAsync("episode");
@@ -29,18 +30,35 @@ namespace PruebaEurofirms.Application.Services
 
             return episodes;
         }
-        public async Task<Episode> GetEpisodeAsync(int id)
+
+        public async Task<Dictionary<int, List<Episode>>> GetCharactersEpisodesAsync(List<CharacterAPI> charactersAPI)
         {
-            var episode = new Episode();
-            var response = await _apiClientService.GetAsync($"episode/{id}");
-            if (response.TryGetProperty("results", out JsonElement resultsElement))
-            {
-                episode = DeserializeEpisodeResponse(resultsElement)[0];
+            var CharactersEpisodes = new Dictionary<int, List<Episode>>{};
+            foreach (var characterAPI in charactersAPI){
+                var episodes = await GetEpisodesAsync(characterAPI.EpisodeIds);
+                CharactersEpisodes.Add(characterAPI.Id, episodes);
             }
+            return CharactersEpisodes;
+        }
+
+        public async Task<List<Episode>> GetEpisodesAsync(List<int> EpisodeIds)
+        {
+            string episodeString = string.Join(",", EpisodeIds);
+            string endpoint = $"/episode/[{episodeString}]";
+
+            var response = await _apiClientService.GetAsync(endpoint);
+            var episodes = DeserializeEpisodeResponse(response);
+            return episodes;
+        }
+
+        public async Task<Episode> GetEpisodeAsync(string EpisodeUrl)
+        {
+            var response = await _apiClientService.GetAsync(EpisodeUrl, useBaseAddress: false);
+            var episode = DeserializeEpisodeResponse(response)[0];
 
             return episode;
         }
-        public List<Episode> DeserializeEpisodeResponse(JsonElement response)
+        private List<Episode> DeserializeEpisodeResponse(JsonElement response)
         {
             var episodes = new List<Episode>();
             foreach (var episodeJson in response.EnumerateArray())
@@ -56,6 +74,11 @@ namespace PruebaEurofirms.Application.Services
                 episodes.Add(episode);
             }
             return episodes;
+        }
+
+        public void InsertEpisodes(List<Episode> episodes)
+        {
+            _episodeRepository.AddEpisodes(episodes);
         }
 
     }

@@ -43,6 +43,7 @@ namespace PruebaEurofirms.Infrastructure
                 CREATE TABLE IF NOT EXISTS CharacterEpisode (
                     CharacterId INTEGER,
                     EpisodeId INTEGER,
+                    PRIMARY KEY (CharacterId, EpisodeId),
                     FOREIGN KEY (CharacterId) REFERENCES Character(Id),
                     FOREIGN KEY (EpisodeId) REFERENCES Episode(Id)
                 );

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PruebaEurofirms")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c2180568d6d3bd2692e059b2c0d2f93266261720")]
 [assembly: System.Reflection.AssemblyProductAttribute("PruebaEurofirms")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PruebaEurofirms")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

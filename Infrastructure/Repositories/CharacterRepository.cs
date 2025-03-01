@@ -33,7 +33,7 @@ namespace PruebaEurofirms.Infrastructure.Repositories
             return characters;
         }
 
-        public void AddCharacter(Character character)
+        public void AddCharacter(CharacterAPI character)
         {
             using var connection = _dbContext.GetConnection();
             connection.Open();
@@ -54,9 +54,9 @@ namespace PruebaEurofirms.Infrastructure.Repositories
             catch (SQLiteException ex) when (ex.ErrorCode == 19){}
         }
 
-        public void AddCharacters(List<Character> characters)
+        public void AddCharacters(List<CharacterAPI> characters)
         {
-            foreach (Character character in characters)
+            foreach (CharacterAPI character in characters)
             {
                 AddCharacter(character);
             }
