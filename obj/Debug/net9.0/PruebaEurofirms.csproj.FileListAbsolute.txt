@@ -59,3 +59,4 @@ C:\Users\maarc\OneDrive\Escritorio\PruebaEurofirms\PruebaEurofirms\obj\Debug\net
 C:\Users\maarc\OneDrive\Escritorio\PruebaEurofirms\PruebaEurofirms\obj\Debug\net9.0\PruebaEurofirms.pdb
 C:\Users\maarc\OneDrive\Escritorio\PruebaEurofirms\PruebaEurofirms\obj\Debug\net9.0\PruebaEurofirms.genruntimeconfig.cache
 C:\Users\maarc\OneDrive\Escritorio\PruebaEurofirms\PruebaEurofirms\obj\Debug\net9.0\ref\PruebaEurofirms.dll
+C:\Users\maarc\OneDrive\Escritorio\PruebaEurofirms\PruebaEurofirms\obj\Debug\net9.0\PruebaEurofirms.sourcelink.json
