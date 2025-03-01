@@ -7,5 +7,7 @@ namespace PruebaEurofirms.Infrastructure.Interfaces
         List<Character> GetAllCharacters();
         void AddCharacter(CharacterAPI character);
         void AddCharacters(List<CharacterAPI> characters);
+        List<Character>GetCharactersFiltered(Status status);
+        Boolean DeleteCharacter(int CharacterId);
     }
 }

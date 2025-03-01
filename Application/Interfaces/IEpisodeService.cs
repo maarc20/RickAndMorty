@@ -9,5 +9,6 @@ namespace PruebaEurofirms.Application.Interfaces
         Task<List<Episode>> GetEpisodesAsync(List<int> EpisodeIds);
         Task<Dictionary<int, List<Episode>>> GetCharactersEpisodesAsync(List<CharacterAPI> characterAPIs);
         void InsertEpisodes(List<Episode> episodes);
+        void DeleteEpisodes(List<int> EpisodeIds);
     }
 }

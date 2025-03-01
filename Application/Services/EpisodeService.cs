@@ -80,6 +80,10 @@ namespace PruebaEurofirms.Application.Services
         {
             _episodeRepository.AddEpisodes(episodes);
         }
+        public void DeleteEpisodes(List<int> EpisodeIds)
+        {
+            _episodeRepository.DeleteEpisodes(EpisodeIds);
+        }
 
     }
 }

@@ -1,9 +1,14 @@
+using System.Runtime.Serialization;
+
 namespace PruebaEurofirms.Domain.Entities
 {
     public enum Status
-    {
-        alive,
-        dead,
+    {[
+        EnumMember(Value = "Alive")]
+        Alive,
+        [EnumMember(Value = "Dead")]
+        Dead,
+        [EnumMember(Value = "unknown")]
         unknown
     }
 }

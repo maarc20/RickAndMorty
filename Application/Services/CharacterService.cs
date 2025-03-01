@@ -77,7 +77,6 @@ namespace PruebaEurofirms.Application.Services
         {
             var episodes = new List<string>();
 
-            // Recorremos los episodios (en caso de que sea una lista de URLs)
             foreach (var episode in episodeElement.EnumerateArray())
             {
                 episodes.Add(episode.GetString());
@@ -91,7 +90,6 @@ namespace PruebaEurofirms.Application.Services
             var episodes = new List<int>();
 
 
-            // Obtenemos los IDS de los episodios a partir de las URL
             foreach (var episode in episodeElement.EnumerateArray())
             {
                 Match match = Regex.Match(episode.GetString(), @".*/episode/(\d+)$");
@@ -104,5 +102,19 @@ namespace PruebaEurofirms.Application.Services
             return episodes;
         }
 
+        public async Task<List<Character>> GetCharactersByStatusAsync(Status status)
+        {
+            var characters = _characterRepository.GetCharactersFiltered(status);
+            return characters;
+        }
+
+        public Boolean DeleteCharacter(int CharacterId)
+        {
+            var characterDeleted = _characterRepository.DeleteCharacter(CharacterId);
+            var EpisodeIds = _characterEpisodeRepository.GetEpisodeIdsFromCharacterId(CharacterId);
+            _characterEpisodeRepository.DeleteEpisodesFromCaracterId(CharacterId);
+            _episodeService.DeleteEpisodes(EpisodeIds);
+            return characterDeleted;
+        }
     }
 }

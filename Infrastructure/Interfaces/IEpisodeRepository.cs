@@ -7,5 +7,6 @@ namespace PruebaEurofirms.Infrastructure.Interfaces
         List<Episode> GetAllEpisodes();
         void AddEpisode(Episode episode);
         void AddEpisodes(IEnumerable<Episode> episodes);
+        void DeleteEpisodes(List<int> episodeIds);
     }
 }

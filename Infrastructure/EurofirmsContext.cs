@@ -45,10 +45,26 @@ namespace PruebaEurofirms.Infrastructure
                     EpisodeId INTEGER,
                     PRIMARY KEY (CharacterId, EpisodeId),
                     FOREIGN KEY (CharacterId) REFERENCES Character(Id),
-                    FOREIGN KEY (EpisodeId) REFERENCES Episode(Id)
+                    FOREIGN KEY (EpisodeId) REFERENCES Episode(Id) ON DELETE RESTRICT
                 );
             ";
             command.ExecuteNonQuery();
+
+            var triggerCommand = connection.CreateCommand();
+            triggerCommand.CommandText =
+            @"
+                CREATE TRIGGER IF NOT EXISTS PreventDeleteEpisode
+                BEFORE DELETE ON Episode
+                FOR EACH ROW
+                BEGIN
+                    SELECT CASE
+                        WHEN (SELECT COUNT(*) FROM CharacterEpisode WHERE EpisodeId = OLD.Id) > 0 THEN
+                            RAISE(ABORT, 'Cannot delete episode because it is still referenced by characters')
+                    END;
+                END;
+            ";
+
+            triggerCommand.ExecuteNonQuery();
         }
     }
 }

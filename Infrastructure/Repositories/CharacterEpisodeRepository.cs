@@ -56,5 +56,39 @@ namespace PruebaEurofirms.Infrastructure.Repositories
                 }
             }
         }
+
+        public void DeleteEpisodesFromCaracterId(int CharacterId)
+        {
+            using var connection = _dbContext.GetConnection();
+            connection.Open();
+            var command = connection.CreateCommand();
+            command.CommandText = 
+            @"
+                DELETE FROM CharacterEpisode where CharacterId = @characterId
+            ";
+            command.Parameters.AddWithValue("@characterId", CharacterId);
+            command.ExecuteNonQuery();
+        }
+
+        public List<int> GetEpisodeIdsFromCharacterId(int CharacterId)
+        {
+            var episodeIds = new List<int>();
+            using var connection = _dbContext.GetConnection();
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = 
+            @"
+                SELECT EpisodeId FROM CharacterEpisode where CharacterId = @characterId
+            ";
+            command.Parameters.AddWithValue("@characterId", CharacterId);
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                episodeIds.Add( reader.GetInt32(0));
+            }
+            
+            return episodeIds;
+        }
     }
 }
